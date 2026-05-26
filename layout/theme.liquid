@@ -100,14 +100,14 @@
       }
 
       :root {
-        --font-body-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
-        --font-body-style: {{ settings.type_body_font.style }};
-        --font-body-weight: {{ settings.type_body_font.weight }};
-        --font-body-weight-bold: {{ settings.type_body_font.weight | plus: 300 | at_most: 1000 }};
+        --font-body-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        --font-body-style: normal;
+        --font-body-weight: 400;
+        --font-body-weight-bold: 600;
 
-        --font-heading-family: {{ settings.type_header_font.family }}, {{ settings.type_header_font.fallback_families }};
-        --font-heading-style: {{ settings.type_header_font.style }};
-        --font-heading-weight: {{ settings.type_header_font.weight }};
+        --font-heading-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        --font-heading-style: normal;
+        --font-heading-weight: 600;
 
         --font-body-scale: {{ settings.body_scale | divided_by: 100.0 }};
         --font-heading-scale: {{ settings.heading_scale | times: 1.0 | divided_by: settings.body_scale }};
@@ -371,5 +371,26 @@
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+    <style>
+      .card-wrapper.product-card-wrapper {
+        cursor: pointer;
+      }
+    </style>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('click', (e) => {
+          const card = e.target.closest('.card-wrapper.product-card-wrapper');
+          if (card) {
+            if (e.target.closest('button') || e.target.closest('a') || e.target.closest('form') || e.target.closest('modal-opener') || e.target.closest('.quantity')) {
+              return;
+            }
+            const productLink = card.querySelector('a[href*="/products/"]');
+            if (productLink) {
+              window.location.href = productLink.getAttribute('href');
+            }
+          }
+        });
+      });
+    </script>
   </body>
 </html>

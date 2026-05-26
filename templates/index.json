@@ -48,7 +48,7 @@
         "show_description": false,
         "description_style": "body",
         "collection": "all",
-        "products_to_show": 8,
+        "products_to_show": 100,
         "columns_desktop": 4,
         "color_scheme": "scheme-1",
         "full_width": false,
