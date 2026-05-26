@@ -647,7 +647,14 @@ async function fetchLiveProducts() {
     const data = await response.json();
     if (data && data.products && data.products.length > 0) {
       const mapped = data.products.map(p => {
-        const firstImage = p.images && p.images[0];
+        const isTShirt = p.title.toLowerCase().includes('shirt') || p.title.toLowerCase().includes('tee') || p.handle.toLowerCase().includes('shirt') || p.handle.toLowerCase().includes('tee');
+        let firstImage = p.images && p.images[0];
+        if (isTShirt && p.images) {
+          const backImg = p.images.find(img => img.src && img.src.toLowerCase().includes('back'));
+          if (backImg) {
+            firstImage = backImg;
+          }
+        }
         const featured_image = firstImage ? {
           url: firstImage.src,
           aspect_ratio: (firstImage.width && firstImage.height) ? (firstImage.width / firstImage.height) : 1.0,
