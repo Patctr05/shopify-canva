@@ -172,9 +172,9 @@ engine.registerTag('style', {
       .on('end', () => { throw new Error(`tag style not closed`); });
     stream.start();
   },
-  render: async function(ctx, emitter) {
+  render: function* (ctx, emitter) {
     emitter.write('<style>');
-    await this.liquid.renderer.renderTemplates(this.templates, ctx, emitter);
+    yield this.liquid.renderer.renderTemplates(this.templates, ctx, emitter);
     emitter.write('</style>');
   }
 });
@@ -189,7 +189,7 @@ engine.registerTag('paginate', {
       .on('end', () => { throw new Error(`tag paginate not closed`); });
     stream.start();
   },
-  render: async function(ctx, emitter) {
+  render: function* (ctx, emitter) {
     ctx.push({
       paginate: {
         current_page: 1,
@@ -198,7 +198,7 @@ engine.registerTag('paginate', {
         page_size: 4
       }
     });
-    await this.liquid.renderer.renderTemplates(this.templates, ctx, emitter);
+    yield this.liquid.renderer.renderTemplates(this.templates, ctx, emitter);
     ctx.pop();
   }
 });
@@ -214,7 +214,7 @@ engine.registerTag('form', {
       .on('end', () => { throw new Error(`tag form not closed`); });
     stream.start();
   },
-  render: async function(ctx, emitter) {
+  render: function* (ctx, emitter) {
     let idAttr = '';
     let classAttr = '';
     const idMatch = this.args.match(/id:\s*['"]([^'"]+)['"]/);
@@ -224,7 +224,7 @@ engine.registerTag('form', {
     
     emitter.write(`<form${idAttr}${classAttr} action="#" method="post">`);
     ctx.push({ form: { posted_successfully: false, errors: [] } });
-    await this.liquid.renderer.renderTemplates(this.templates, ctx, emitter);
+    yield this.liquid.renderer.renderTemplates(this.templates, ctx, emitter);
     ctx.pop();
     emitter.write('</form>');
   }
@@ -346,10 +346,16 @@ const mockProducts = [
       aspect_ratio: 1.0,
       width: 600
     },
+    featured_media: {
+      url: "https://images.unsplash.com/photo-1520639888713-7851133b1ed0?q=80&w=600&auto=format&fit=crop",
+      aspect_ratio: 1.0,
+      width: 600
+    },
     images: [
       "https://images.unsplash.com/photo-1520639888713-7851133b1ed0?q=80&w=600&auto=format&fit=crop"
     ],
     variants: [{ id: 101, title: "Black / 9", price: 12000, compare_at_price: 15000, available: true }],
+    selected_or_first_available_variant: { id: 101, title: "Black / 9", price: 12000, compare_at_price: 15000, available: true },
     options_with_values: [{ name: "Color", values: ["Black", "Brown"] }, { name: "Size", values: ["9", "10", "11"] }],
     description: "Handcrafted from responsibly sourced leather. Designed for ultimate durability, style, and everyday comfort.",
     content: "Handcrafted from responsibly sourced leather. Designed for ultimate durability, style, and everyday comfort."
@@ -368,10 +374,16 @@ const mockProducts = [
       aspect_ratio: 0.75,
       width: 600
     },
+    featured_media: {
+      url: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=600&auto=format&fit=crop",
+      aspect_ratio: 0.75,
+      width: 600
+    },
     images: [
       "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=600&auto=format&fit=crop"
     ],
     variants: [{ id: 201, title: "Default Title", price: 4500, compare_at_price: null, available: true }],
+    selected_or_first_available_variant: { id: 201, title: "Default Title", price: 4500, compare_at_price: null, available: true },
     options_with_values: [{ name: "Color", values: ["White", "Beige"] }],
     description: "Super light and airy linen shirt. Fits relaxed and keeps you cool through hot days.",
     content: "Super light and airy linen shirt. Fits relaxed and keeps you cool through hot days."
@@ -390,10 +402,16 @@ const mockProducts = [
       aspect_ratio: 1.0,
       width: 600
     },
+    featured_media: {
+      url: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=600&auto=format&fit=crop",
+      aspect_ratio: 1.0,
+      width: 600
+    },
     images: [
       "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=600&auto=format&fit=crop"
     ],
     variants: [{ id: 301, title: "Default Title", price: 2400, compare_at_price: 3000, available: true }],
+    selected_or_first_available_variant: { id: 301, title: "Default Title", price: 2400, compare_at_price: 3000, available: true },
     options_with_values: [{ name: "Color", values: ["Natural", "Blue Speckle"] }],
     description: "An organically shaped, heavy-bottom ceramic mug that makes morning coffee feel special.",
     content: "An organically shaped, heavy-bottom ceramic mug that makes morning coffee feel special."
@@ -412,10 +430,16 @@ const mockProducts = [
       aspect_ratio: 1.0,
       width: 600
     },
+    featured_media: {
+      url: "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?q=80&w=600&auto=format&fit=crop",
+      aspect_ratio: 1.0,
+      width: 600
+    },
     images: [
       "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?q=80&w=600&auto=format&fit=crop"
     ],
     variants: [{ id: 401, title: "Default Title", price: 1800, compare_at_price: null, available: true }],
+    selected_or_first_available_variant: { id: 401, title: "Default Title", price: 1800, compare_at_price: null, available: true },
     options_with_values: [{ name: "Color", values: ["Charcoal", "Mustard"] }],
     description: "Soft, warm, and highly stretchable ribbed beanie knitted from 100% organic merino wool.",
     content: "Soft, warm, and highly stretchable ribbed beanie knitted from 100% organic merino wool."
@@ -439,6 +463,19 @@ function getGlobalSettings() {
     const settingsData = JSON.parse(fs.readFileSync(settingsPath, 'utf8'));
     const currentPreset = settingsData.current || Object.keys(settingsData.presets)[0];
     const rawSettings = settingsData.presets[currentPreset] || {};
+    
+    // Transform color_schemes into an array of { id, settings } to match Shopify's iterator behavior in LiquidJS
+    if (rawSettings.color_schemes) {
+      const schemesArray = [];
+      for (const [id, value] of Object.entries(rawSettings.color_schemes)) {
+        schemesArray.push({
+          id: id,
+          settings: value.settings || {}
+        });
+      }
+      rawSettings.color_schemes = schemesArray;
+    }
+    
     return processSettings(rawSettings);
   } catch (e) {
     console.error('Error loading global settings:', e);
