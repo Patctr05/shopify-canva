@@ -596,6 +596,51 @@ app.get('/products/:handle', async (req, res) => {
   }
 });
 
+app.get('/collections/:handle', async (req, res) => {
+  try {
+    const handle = req.params.handle;
+    const collection = mockCollections[handle] || {
+      title: handle.charAt(0).toUpperCase() + handle.slice(1).replace(/-/g, ' ') + " Collection",
+      url: `/collections/${handle}`,
+      products: mockProducts,
+      all_products_count: mockProducts.length,
+      description: `Browse all products in our custom ${handle} collection.`
+    };
+
+    const globalContext = {
+      settings: getGlobalSettings(),
+      collections: mockCollections,
+      collection: collection,
+      cart: {
+        item_count: 0,
+        items: [],
+        total_price: 0
+      },
+      request: { locale: { iso_code: 'en' } },
+      canonical_url: `http://localhost:3000/collections/${handle}`,
+      page_title: `${collection.title} - Local Store`,
+      page_description: collection.description,
+      content_for_header: '<!-- mock content_for_header -->',
+      theme: { name: 'Dawn' }
+    };
+
+    const contentForLayout = await renderPage('collection', globalContext);
+    
+    const layoutContext = {
+      ...globalContext,
+      content_for_layout: contentForLayout
+    };
+
+    let html = await engine.renderFile('theme', layoutContext);
+    
+    html = injectDevConsole(html, 'collection', path.join(__dirname, 'templates/collection.json'));
+
+    res.send(html);
+  } catch (err) {
+    res.status(500).send(`<h1>Theme Rendering Error</h1><pre>${err.stack}</pre>`);
+  }
+});
+
 async function fetchLiveProducts() {
   try {
     const response = await fetch('https://gp0hf1-ca.myshopify.com/products.json');
