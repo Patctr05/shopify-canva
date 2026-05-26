@@ -448,6 +448,7 @@ let mockProducts = [
 
 let mockCollections = {
   all: {
+    handle: "all",
     title: "All Products",
     url: "/collections/all",
     products: mockProducts,
@@ -777,6 +778,7 @@ async function fetchLiveProducts() {
       mockCollections.all.all_products_count = mapped.length;
 
       mockCollections.mens_tshirts = {
+        handle: "mens-t-shirts",
         title: "Men's T-Shirts",
         url: "/collections/mens-t-shirts",
         products: mapped.filter(p => {
@@ -787,6 +789,7 @@ async function fetchLiveProducts() {
         })
       };
       mockCollections.womens_tshirts = {
+        handle: "womens-t-shirts",
         title: "Women's T-Shirts",
         url: "/collections/womens-t-shirts",
         products: mapped.filter(p => {
@@ -797,21 +800,25 @@ async function fetchLiveProducts() {
         })
       };
       mockCollections.coffee_cups = {
+        handle: "coffee-cups",
         title: "Coffee Cups",
         url: "/collections/coffee-cups",
         products: mapped.filter(p => p.title.toLowerCase().includes('mug') || p.title.toLowerCase().includes('cup'))
       };
       mockCollections.phone_cases = {
+        handle: "phone-cases",
         title: "Phone Cases",
         url: "/collections/phone-cases",
         products: mapped.filter(p => (p.title.toLowerCase().includes('iphone') || p.title.toLowerCase().includes('samsung') || p.title.toLowerCase().includes('pixel') || p.title.toLowerCase().includes('galaxy')) && (p.title.toLowerCase().includes('case') || p.title.toLowerCase().includes('cover')) && !p.title.toLowerCase().includes('webcam'))
       };
       mockCollections.webcam_covers = {
+        handle: "webcam-covers",
         title: "Webcam Covers",
         url: "/collections/webcam-covers",
         products: mapped.filter(p => p.title.toLowerCase().includes('webcam') || (p.title.toLowerCase().includes('camera cover') && !p.title.toLowerCase().includes('case')))
       };
       mockCollections.screen_protectors = {
+        handle: "screen-protectors",
         title: "Screen Protectors",
         url: "/collections/screen-protectors",
         products: mapped.filter(p => p.title.toLowerCase().includes('protector'))
