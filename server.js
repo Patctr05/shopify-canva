@@ -34,6 +34,25 @@ if (fs.existsSync(localesPath)) {
 function getTranslation(key, params) {
   let value = key.split('.').reduce((obj, k) => obj && obj[k], locales);
   if (!value) return key;
+
+  // Handle pluralization objects (e.g. { one: '...', other: '...' })
+  if (typeof value === 'object') {
+    if (params && params.count !== undefined) {
+      const count = Number(params.count);
+      if (count === 1 && value.one) {
+        value = value.one;
+      } else {
+        value = value.other || value.many || Object.values(value)[0] || '';
+      }
+    } else {
+      value = value.other || Object.values(value)[0] || '';
+    }
+  }
+
+  if (typeof value !== 'string') {
+    value = String(value);
+  }
+
   if (params) {
     for (const [k, v] of Object.entries(params)) {
       value = value.replace(new RegExp(`{{\\s*${k}\\s*}}`, 'g'), v);
@@ -472,6 +491,11 @@ app.get('/', async (req, res) => {
     const globalContext = {
       settings: getGlobalSettings(),
       collections: mockCollections,
+      cart: {
+        item_count: 0,
+        items: [],
+        total_price: 0
+      },
       request: { locale: { iso_code: 'en' } },
       canonical_url: 'http://localhost:3000/',
       page_title: 'My Local Shopify Store',
@@ -505,6 +529,11 @@ app.get('/products/:handle', async (req, res) => {
       settings: getGlobalSettings(),
       collections: mockCollections,
       product: product,
+      cart: {
+        item_count: 0,
+        items: [],
+        total_price: 0
+      },
       request: { locale: { iso_code: 'en' } },
       canonical_url: `http://localhost:3000/products/${product.handle}`,
       page_title: `${product.title} - Local Store`,
