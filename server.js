@@ -713,7 +713,7 @@ async function fetchLiveProducts() {
         };
       });
 
-      // Sort products: Men's T-Shirts first (Ben-Jlo then Mailbox then others), then Women's T-Shirts, then other products
+      // Sort products: Men's T-Shirts first (Ben-Jlo then Mailbox then others), then Women's T-Shirts, then Phone Cases, then Webcam Covers, then other products
       mapped.sort((a, b) => {
         const titleA = a.title.toLowerCase();
         const titleB = b.title.toLowerCase();
@@ -727,15 +727,37 @@ async function fetchLiveProducts() {
         const isMensA = (titleA.includes('men') || titleA.includes('mens') || titleA.includes('men’s')) && !isWomansA;
         const isMensB = (titleB.includes('men') || titleB.includes('mens') || titleB.includes('men’s')) && !isWomansB;
         
-        if (isTShirtA && !isTShirtB) return -1;
-        if (!isTShirtA && isTShirtB) return 1;
+        const isPhoneCaseA = (titleA.includes('case') || titleA.includes('cover')) && !titleA.includes('webcam');
+        const isPhoneCaseB = (titleB.includes('case') || titleB.includes('cover')) && !titleB.includes('webcam');
         
-        if (isTShirtA && isTShirtB) {
-          if (isMensA && !isMensB) return -1;
-          if (!isMensA && isMensB) return 1;
-          if (isWomansA && !isWomansB && !isMensB) return -1;
-          if (!isWomansA && isWomansB && !isMensA) return 1;
-          
+        const isWebcamA = titleA.includes('webcam');
+        const isWebcamB = titleB.includes('webcam');
+        
+        // Group priorities: 0: Men's T-Shirt, 1: Women's T-Shirt, 2: Phone Cases, 3: Webcam Covers, 4: Other (Mugs, Screen Protectors)
+        let groupA = 4;
+        if (isTShirtA) {
+          groupA = isMensA ? 0 : 1;
+        } else if (isPhoneCaseA) {
+          groupA = 2;
+        } else if (isWebcamA) {
+          groupA = 3;
+        }
+        
+        let groupB = 4;
+        if (isTShirtB) {
+          groupB = isMensB ? 0 : 1;
+        } else if (isPhoneCaseB) {
+          groupB = 2;
+        } else if (isWebcamB) {
+          groupB = 3;
+        }
+        
+        if (groupA !== groupB) {
+          return groupA - groupB;
+        }
+        
+        // If in same group, sub-sort (T-shirts only)
+        if (groupA === 0 || groupA === 1) {
           const isBenJloA = titleA.includes('ben-jlo') || titleA.includes('benjlo');
           const isBenJloB = titleB.includes('ben-jlo') || titleB.includes('benjlo');
           if (isBenJloA && !isBenJloB) return -1;

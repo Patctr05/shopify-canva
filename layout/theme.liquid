@@ -374,6 +374,31 @@
     <style>
       .card-wrapper.product-card-wrapper {
         cursor: pointer;
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+      }
+      .card-wrapper.product-card-wrapper:hover {
+        transform: translateY(-4px) scale(1.01);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+      }
+      .button, .customer button, button.button {
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      }
+      .button:hover, .customer button:hover, button.button:hover {
+        background-color: #4f46e5 !important;
+        color: #ffffff !important;
+        border-color: #4f46e5 !important;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2) !important;
+      }
+      .announcement-bar {
+        background: linear-gradient(90deg, #4f46e5, #818cf8) !important;
+        color: #ffffff !important;
+        font-weight: 700;
+        letter-spacing: 0.05rem;
+        text-transform: uppercase;
+      }
+      .announcement-bar__message {
+        color: #ffffff !important;
       }
     </style>
     <script>
