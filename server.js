@@ -331,7 +331,7 @@ async function renderSection(sectionId, secConfig, parentContext) {
 }
 
 // Global Mock Data for Shopify Environment
-const mockProducts = [
+let mockProducts = [
   {
     id: 1,
     title: "Eco-Friendly Leather Boot",
@@ -446,7 +446,7 @@ const mockProducts = [
   }
 ];
 
-const mockCollections = {
+let mockCollections = {
   all: {
     title: "All Products",
     url: "/collections/all",
@@ -596,11 +596,83 @@ app.get('/products/:handle', async (req, res) => {
   }
 });
 
+async function fetchLiveProducts() {
+  try {
+    const response = await fetch('https://gp0hf1-ca.myshopify.com/products.json');
+    const data = await response.json();
+    if (data && data.products && data.products.length > 0) {
+      const mapped = data.products.map(p => {
+        const firstImage = p.images && p.images[0];
+        const featured_image = firstImage ? {
+          url: firstImage.src,
+          aspect_ratio: (firstImage.width && firstImage.height) ? (firstImage.width / firstImage.height) : 1.0,
+          width: firstImage.width || 800,
+          height: firstImage.height || 800
+        } : {
+          url: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=600&auto=format&fit=crop",
+          aspect_ratio: 1.0,
+          width: 600,
+          height: 600
+        };
+
+        const imagesList = p.images ? p.images.map(img => img.src) : [featured_image.url];
+
+        const variants = p.variants ? p.variants.map(v => {
+          const priceCents = Math.round(parseFloat(v.price) * 100);
+          const compareAtCents = v.compare_at_price ? Math.round(parseFloat(v.compare_at_price) * 100) : null;
+          return {
+            id: v.id,
+            title: v.title,
+            price: priceCents,
+            compare_at_price: compareAtCents,
+            available: true
+          };
+        }) : [];
+
+        const selectedVariant = variants[0] || { id: p.id, title: "Default Title", price: 0, compare_at_price: null, available: false };
+
+        const options_with_values = p.options ? p.options.map(opt => ({
+          name: opt.name,
+          values: opt.values
+        })) : [];
+
+        return {
+          id: p.id,
+          title: p.title,
+          handle: p.handle,
+          url: `/products/${p.handle}`,
+          vendor: p.vendor,
+          price: selectedVariant.price,
+          compare_at_price: selectedVariant.compare_at_price,
+          available: selectedVariant.available,
+          featured_image: featured_image,
+          featured_media: featured_image,
+          images: imagesList,
+          variants: variants,
+          selected_or_first_available_variant: selectedVariant,
+          options_with_values: options_with_values,
+          description: p.body_html || "",
+          content: p.body_html || ""
+        };
+      });
+
+      mockProducts = mapped;
+      mockCollections.all.products = mapped;
+      mockCollections.all.all_products_count = mapped.length;
+      console.log(`\n✅ Loaded ${mapped.length} products from gp0hf1-ca.myshopify.com`);
+    }
+  } catch (err) {
+    console.error('Error fetching live products, falling back to mock data:', err.message);
+  }
+}
+
 // Run server
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
+  await fetchLiveProducts();
   console.log(`\n🚀 Shopify rendering server running locally!`);
+  const firstProductHandle = mockProducts[0] ? mockProducts[0].handle : 'eco-friendly-leather-boot';
   console.log(`👉 Preview Home:    http://localhost:${PORT}`);
-  console.log(`👉 Preview Product: http://localhost:${PORT}/products/eco-friendly-leather-boot\n`);
+  console.log(`👉 Preview Product: http://localhost:${PORT}/products/${firstProductHandle}\n`);
 });
 
 // Render dynamic templates helper
