@@ -295,6 +295,70 @@
       if (Shopify.designMode) {
         document.documentElement.classList.add('shopify-design-mode');
       }
+    </script>
+    <style>
+      .card-wrapper.product-card-wrapper {
+        cursor: pointer;
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+      }
+      .card-wrapper.product-card-wrapper:hover {
+        transform: translateY(-4px) scale(1.01);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+      }
+      .button, .customer button, button.button {
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      }
+      .button:hover, .customer button:hover, button.button:hover {
+        background-color: #4f46e5 !important;
+        color: #ffffff !important;
+        border-color: #4f46e5 !important;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2) !important;
+      }
+      .announcement-bar {
+        background: linear-gradient(90deg, #4f46e5, #818cf8) !important;
+        color: #ffffff !important;
+        font-weight: 700;
+        letter-spacing: 0.05rem;
+        text-transform: uppercase;
+      }
+      .announcement-bar__message {
+        color: #ffffff !important;
+      }
+      .breaking-news-flasher {
+        background-color: #d32f2f;
+        color: #ffffff;
+        padding: 10px 20px;
+        text-align: center;
+        font-weight: 700;
+        font-size: 1.3rem;
+        line-height: 1.4;
+        -webkit-animation: pulse-flash 1s infinite;
+        animation: pulse-flash 1s infinite;
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+        z-index: 1000;
+      }
+      @-webkit-keyframes pulse-flash {
+        0%, 100% {
+          background-color: #d32f2f;
+          color: #ffffff;
+        }
+        50% {
+          background-color: #ffebee;
+          color: #c62828;
+        }
+      }
+      @keyframes pulse-flash {
+        0%, 100% {
+          background-color: #d32f2f;
+          color: #ffffff;
+        }
+        50% {
+          background-color: #ffebee;
+          color: #c62828;
+        }
+      }
+    </style>
   </head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
@@ -371,58 +435,7 @@
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
-    <style>
-      .card-wrapper.product-card-wrapper {
-        cursor: pointer;
-        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
-      }
-      .card-wrapper.product-card-wrapper:hover {
-        transform: translateY(-4px) scale(1.01);
-        box-shadow: 0 10px 25px rgba(0,0,0,0.06);
-      }
-      .button, .customer button, button.button {
-        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
-      }
-      .button:hover, .customer button:hover, button.button:hover {
-        background-color: #4f46e5 !important;
-        color: #ffffff !important;
-        border-color: #4f46e5 !important;
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2) !important;
-      }
-      .announcement-bar {
-        background: linear-gradient(90deg, #4f46e5, #818cf8) !important;
-        color: #ffffff !important;
-        font-weight: 700;
-        letter-spacing: 0.05rem;
-        text-transform: uppercase;
-      }
-      .announcement-bar__message {
-        color: #ffffff !important;
-      }
-      .breaking-news-flasher {
-        background-color: #d32f2f;
-        color: #ffffff;
-        padding: 10px 20px;
-        text-align: center;
-        font-weight: 700;
-        font-size: 1.3rem;
-        line-height: 1.4;
-        animation: pulse-flash 1.5s infinite;
-        border-bottom: 1px solid rgba(255,255,255,0.2);
-        z-index: 1000;
-      }
-      @keyframes pulse-flash {
-        0%, 100% {
-          background-color: #d32f2f;
-          color: #ffffff;
-        }
-        50% {
-          background-color: #ffebee;
-          color: #c62828;
-        }
-      }
-    </style>
+
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener('click', (e) => {
