@@ -721,11 +721,11 @@ async function fetchLiveProducts() {
         const isTShirtA = titleA.includes('t-shirt') || titleA.includes('tee');
         const isTShirtB = titleB.includes('t-shirt') || titleB.includes('tee');
         
-        const isMensA = titleA.includes('men');
-        const isMensB = titleB.includes('men');
-        
-        const isWomansA = titleA.includes('woman') || titleA.includes('women');
-        const isWomansB = titleB.includes('woman') || titleB.includes('women');
+        const isWomansA = titleA.includes('woman') || titleA.includes('women') || titleA.includes('women’s') || titleA.includes('woman’s');
+        const isWomansB = titleB.includes('woman') || titleB.includes('women') || titleB.includes('women’s') || titleB.includes('woman’s');
+
+        const isMensA = (titleA.includes('men') || titleA.includes('mens') || titleA.includes('men’s')) && !isWomansA;
+        const isMensB = (titleB.includes('men') || titleB.includes('mens') || titleB.includes('men’s')) && !isWomansB;
         
         if (isTShirtA && !isTShirtB) return -1;
         if (!isTShirtA && isTShirtB) return 1;
