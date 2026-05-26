@@ -1,0 +1,144 @@
+<div class="donations-section page-width section-{{ section.id }}-padding" id="donations-section">
+  <div class="donations-container">
+    <h2 class="donations-title">Support & Donations</h2>
+    <p class="donations-text">
+      If you don't wish to make a purchase but would still like to send a donation, it will be greatly appreciated!
+    </p>
+    <div class="donation-qr-container">
+      <div class="donation-qr-card">
+        <div class="donation-qr-wrapper">
+          <img src="{{ 'donation-cashapp.jpg' | asset_url }}" alt="Cash App Donation QR" class="donation-qr-image" loading="lazy">
+        </div>
+        <p class="donation-qr-label">Cash App</p>
+      </div>
+      <div class="donation-qr-card">
+        <div class="donation-qr-wrapper">
+          <img src="{{ 'donation-venmo.jpg' | asset_url }}" alt="Venmo Donation QR" class="donation-qr-image" loading="lazy">
+        </div>
+        <p class="donation-qr-label">Venmo</p>
+      </div>
+      <div class="donation-qr-card">
+        <div class="donation-qr-wrapper">
+          <img src="{{ 'donation-btc.jpg' | asset_url }}" alt="BTC Donation QR" class="donation-qr-image" loading="lazy">
+        </div>
+        <p class="donation-qr-label">Bitcoin (BTC)</p>
+      </div>
+      <div class="donation-qr-card">
+        <div class="donation-qr-wrapper">
+          <img src="{{ 'donation-eth.jpg' | asset_url }}" alt="Ethereum (ETH)" class="donation-qr-image" loading="lazy">
+        </div>
+        <p class="donation-qr-label">Ethereum (ETH)</p>
+      </div>
+      <div class="donation-qr-card">
+        <div class="donation-qr-wrapper">
+          <img src="{{ 'donation-usdc.jpg' | asset_url }}" alt="USDC Donation QR" class="donation-qr-image" loading="lazy">
+        </div>
+        <p class="donation-qr-label">USDC</p>
+      </div>
+      <div class="donation-qr-card">
+        <div class="donation-qr-wrapper">
+          <img src="{{ 'donation-sui.jpg' | asset_url }}" alt="SUI Donation QR" class="donation-qr-image" loading="lazy">
+        </div>
+        <p class="donation-qr-label">SUI</p>
+      </div>
+      <div class="donation-qr-card">
+        <div class="donation-qr-wrapper">
+          <img src="{{ 'donation-cro.jpg' | asset_url }}" alt="CRO Donation QR" class="donation-qr-image" loading="lazy">
+        </div>
+        <p class="donation-qr-label">Crypto.com (CRO)</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .donations-section {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+    text-align: center;
+  }
+  .donations-container {
+    max-width: 100rem;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 4rem 3rem;
+    border-radius: 16px;
+    border: 1px solid #e4e4e7;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+  }
+  .donations-title {
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    color: #18181b;
+  }
+  .donations-text {
+    font-size: 1.6rem;
+    color: #4b5563;
+    margin-bottom: 4rem;
+    line-height: 1.6;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .donation-qr-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 3rem;
+    justify-content: center;
+  }
+  @media screen and (min-width: 750px) {
+    .donation-qr-container {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 4rem;
+    }
+  }
+  .donation-qr-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .donation-qr-wrapper {
+    position: relative;
+    width: 110px;
+    height: 110px;
+    margin-bottom: 1.2rem;
+  }
+  .donation-qr-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+    cursor: zoom-in;
+    border: 1px solid #e4e4e7;
+    border-radius: 12px;
+    background: #ffffff;
+    padding: 8px;
+    transform-origin: center center;
+  }
+  .donation-qr-wrapper:hover .donation-qr-image {
+    transform: scale(2.5);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    z-index: 100;
+    position: relative;
+  }
+  .donation-qr-label {
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: #3f3f46;
+    margin: 0;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Donations Support",
+  "tag": "section",
+  "class": "section",
+  "presets": [
+    {
+      "name": "Donations Support"
+    }
+  ]
+}
+{% endschema %}

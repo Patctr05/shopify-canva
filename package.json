@@ -1,0 +1,22 @@
+{
+  "name": "shopify-theme",
+  "version": "1.0.0",
+  "description": "Local development environment for Shopify theme development",
+  "scripts": {
+    "start": "node server.js",
+    "serve": "node server.js",
+    "shopify": "shopify",
+    "dev": "shopify theme dev",
+    "pull": "shopify theme pull",
+    "push": "shopify theme push",
+    "list": "shopify theme list",
+    "check": "shopify theme check"
+  },
+  "devDependencies": {
+    "@shopify/cli": "^3.60.0"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "liquidjs": "^10.27.0"
+  }
+}
