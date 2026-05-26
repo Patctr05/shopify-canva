@@ -92,12 +92,12 @@
       {%- endif -%}
     </div>
 
-    {%- if section.settings.collection.handle == 'all' -%}
+    {%- if section.settings.collection.handle == 'all' or section.settings.collection.handle == 'frontpage' or section.settings.collection == blank -%}
       {% comment %} Men's T-Shirts Category {% endcomment %}
       <div id="mens-t-shirts" class="category-group page-width">
         <h3 class="category-heading">Men's T-Shirts</h3>
         <ul class="grid product-grid grid--4-col-desktop grid--2-col-tablet-down list-unstyled" role="list">
-          {%- for product in collections.mens_tshirts.products -%}
+          {%- for product in collections['mens-t-shirts'].products -%}
             <li class="grid__item">
               {% render 'card-product',
                 card_product: product,
@@ -119,7 +119,7 @@
       <div id="womens-t-shirts" class="category-group page-width">
         <h3 class="category-heading">Women's T-Shirts</h3>
         <ul class="grid product-grid grid--4-col-desktop grid--2-col-tablet-down list-unstyled" role="list">
-          {%- for product in collections.womens_tshirts.products -%}
+          {%- for product in collections['womens-t-shirts'].products -%}
             <li class="grid__item">
               {% render 'card-product',
                 card_product: product,
@@ -141,7 +141,7 @@
       <div id="coffee-cups" class="category-group page-width">
         <h3 class="category-heading">Coffee Cups</h3>
         <ul class="grid product-grid grid--4-col-desktop grid--2-col-tablet-down list-unstyled" role="list">
-          {%- for product in collections.coffee_cups.products -%}
+          {%- for product in collections['coffee-cups'].products -%}
             <li class="grid__item">
               {% render 'card-product',
                 card_product: product,
@@ -169,7 +169,7 @@
       <div id="phone-cases" class="category-group page-width">
         <h3 class="category-heading">Phone Cases</h3>
         <ul class="grid product-grid grid--4-col-desktop grid--2-col-tablet-down list-unstyled" role="list">
-          {%- for product in collections.phone_cases.products -%}
+          {%- for product in collections['phone-cases'].products -%}
             <li class="grid__item">
               {% render 'card-product',
                 card_product: product,
@@ -191,7 +191,7 @@
       <div id="webcam-covers" class="category-group page-width">
         <h3 class="category-heading">Webcam Covers</h3>
         <ul class="grid product-grid grid--4-col-desktop grid--2-col-tablet-down list-unstyled" role="list">
-          {%- for product in collections.webcam_covers.products -%}
+          {%- for product in collections['webcam-covers'].products -%}
             <li class="grid__item">
               {% render 'card-product',
                 card_product: product,
@@ -213,7 +213,7 @@
       <div id="screen-protectors" class="category-group page-width">
         <h3 class="category-heading">Screen Protectors</h3>
         <ul class="grid product-grid grid--4-col-desktop grid--2-col-tablet-down list-unstyled" role="list">
-          {%- for product in collections.screen_protectors.products -%}
+          {%- for product in collections['screen-protectors'].products -%}
             <li class="grid__item">
               {% render 'card-product',
                 card_product: product,

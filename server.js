@@ -788,6 +788,8 @@ async function fetchLiveProducts() {
           return isTShirt && !isWomen;
         })
       };
+      mockCollections['mens-t-shirts'] = mockCollections.mens_tshirts;
+
       mockCollections.womens_tshirts = {
         handle: "womens-t-shirts",
         title: "Women's T-Shirts",
@@ -799,30 +801,39 @@ async function fetchLiveProducts() {
           return isTShirt && isWomen;
         })
       };
+      mockCollections['womens-t-shirts'] = mockCollections.womens_tshirts;
+
       mockCollections.coffee_cups = {
         handle: "coffee-cups",
         title: "Coffee Cups",
         url: "/collections/coffee-cups",
         products: mapped.filter(p => p.title.toLowerCase().includes('mug') || p.title.toLowerCase().includes('cup'))
       };
+      mockCollections['coffee-cups'] = mockCollections.coffee_cups;
+
       mockCollections.phone_cases = {
         handle: "phone-cases",
         title: "Phone Cases",
         url: "/collections/phone-cases",
         products: mapped.filter(p => (p.title.toLowerCase().includes('iphone') || p.title.toLowerCase().includes('samsung') || p.title.toLowerCase().includes('pixel') || p.title.toLowerCase().includes('galaxy')) && (p.title.toLowerCase().includes('case') || p.title.toLowerCase().includes('cover')) && !p.title.toLowerCase().includes('webcam'))
       };
+      mockCollections['phone-cases'] = mockCollections.phone_cases;
+
       mockCollections.webcam_covers = {
         handle: "webcam-covers",
         title: "Webcam Covers",
         url: "/collections/webcam-covers",
         products: mapped.filter(p => p.title.toLowerCase().includes('webcam') || (p.title.toLowerCase().includes('camera cover') && !p.title.toLowerCase().includes('case')))
       };
+      mockCollections['webcam-covers'] = mockCollections.webcam_covers;
+
       mockCollections.screen_protectors = {
         handle: "screen-protectors",
         title: "Screen Protectors",
         url: "/collections/screen-protectors",
         products: mapped.filter(p => p.title.toLowerCase().includes('protector'))
       };
+      mockCollections['screen-protectors'] = mockCollections.screen_protectors;
 
       console.log(`\n✅ Loaded ${mapped.length} products from gp0hf1-ca.myshopify.com`);
     }
