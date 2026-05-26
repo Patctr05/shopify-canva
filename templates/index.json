@@ -6,7 +6,7 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Breaking News: John Kiriakou, a former CIA spy, says \"the CIA can access any device with a camera and microphone and turn them on.\" Cover your phone cameras now with this great deal.",
+            "heading": "Privacy Protection Products",
             "heading_size": "h1"
           }
         },
@@ -39,16 +39,27 @@
         "show_text_below": false
       }
     },
-    "featured_collection": {
+    "mens_header": {
+      "type": "category-header",
+      "settings": {
+        "title": "Men's T-Shirts",
+        "section_id": "mens-tshirts-section",
+        "description": "Quality t-shirts for men",
+        "color_scheme": "scheme-1",
+        "padding_top": 48,
+        "padding_bottom": 16
+      }
+    },
+    "mens_collection": {
       "type": "featured-collection",
       "settings": {
-        "title": "Featured products",
+        "title": "",
         "heading_size": "h2",
         "description": "",
         "show_description": false,
         "description_style": "body",
-        "collection": "all",
-        "products_to_show": 100,
+        "collection": "mens-t-shirts",
+        "products_to_show": 12,
         "columns_desktop": 4,
         "color_scheme": "scheme-1",
         "full_width": false,
@@ -63,13 +74,192 @@
         "show_rating": false,
         "quick_add": "none",
         "columns_mobile": "2",
-        "padding_top": 44,
+        "padding_top": 16,
         "padding_bottom": 36
+      }
+    },
+    "womens_header": {
+      "type": "category-header",
+      "settings": {
+        "title": "Women's T-Shirts",
+        "section_id": "womens-tshirts-section",
+        "description": "Quality t-shirts for women",
+        "color_scheme": "scheme-1",
+        "padding_top": 48,
+        "padding_bottom": 16
+      }
+    },
+    "womens_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "womens-t-shirts",
+        "products_to_show": 12,
+        "columns_desktop": 4,
+        "color_scheme": "scheme-1",
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "enable_desktop_slider": false,
+        "swipe_on_mobile": false,
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "padding_top": 16,
+        "padding_bottom": 36
+      }
+    },
+    "coffee_header": {
+      "type": "category-header",
+      "settings": {
+        "title": "Coffee Cups",
+        "section_id": "coffee-cups-section",
+        "description": "Premium coffee mugs and cups",
+        "color_scheme": "scheme-1",
+        "padding_top": 48,
+        "padding_bottom": 16
+      }
+    },
+    "coffee_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "coffee-cups",
+        "products_to_show": 12,
+        "columns_desktop": 4,
+        "color_scheme": "scheme-1",
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "enable_desktop_slider": false,
+        "swipe_on_mobile": false,
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "padding_top": 16,
+        "padding_bottom": 36
+      }
+    },
+    "screen_protectors_header": {
+      "type": "category-header",
+      "settings": {
+        "title": "Screen Protectors & Camera Covers",
+        "section_id": "screen-protectors-section",
+        "description": "Protect your privacy with our screen protectors and camera covers",
+        "color_scheme": "scheme-1",
+        "padding_top": 48,
+        "padding_bottom": 16
+      }
+    },
+    "screen_protectors_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "screen-protectors",
+        "products_to_show": 12,
+        "columns_desktop": 4,
+        "color_scheme": "scheme-1",
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "enable_desktop_slider": false,
+        "swipe_on_mobile": false,
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "padding_top": 16,
+        "padding_bottom": 36
+      }
+    },
+    "camera_covers_header": {
+      "type": "category-header",
+      "settings": {
+        "title": "Camera Covers",
+        "section_id": "camera-covers-section",
+        "description": "Protect your camera from prying eyes",
+        "color_scheme": "scheme-1",
+        "padding_top": 48,
+        "padding_bottom": 16
+      }
+    },
+    "camera_covers_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "camera-covers",
+        "products_to_show": 12,
+        "columns_desktop": 4,
+        "color_scheme": "scheme-1",
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "enable_desktop_slider": false,
+        "swipe_on_mobile": false,
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "padding_top": 16,
+        "padding_bottom": 36
+      }
+    },
+    "donation": {
+      "type": "donation-section",
+      "settings": {
+        "title": "Support Our Mission",
+        "description": "If you don't wish to make a purchase and wish to send a donation, it will be greatly appreciated. Scan any QR code below to donate.",
+        "qr_label_1": "PayPal",
+        "qr_label_2": "Venmo",
+        "qr_label_3": "Cash App",
+        "color_scheme": "scheme-1",
+        "padding_top": 60,
+        "padding_bottom": 60
       }
     }
   },
   "order": [
     "image_banner",
-    "featured_collection"
+    "mens_header",
+    "mens_collection",
+    "womens_header",
+    "womens_collection",
+    "coffee_header",
+    "coffee_collection",
+    "screen_protectors_header",
+    "screen_protectors_collection",
+    "camera_covers_header",
+    "camera_covers_collection",
+    "donation"
   ]
 }

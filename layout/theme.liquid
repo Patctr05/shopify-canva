@@ -325,38 +325,77 @@
       .announcement-bar__message {
         color: #ffffff !important;
       }
-      .breaking-news-flasher {
-        background-color: #d32f2f;
-        color: #ffffff;
-        padding: 10px 20px;
+      /* Donation section styles */
+      .donation-section {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 60px 20px;
         text-align: center;
+      }
+      .donation-section h2 {
+        font-size: 2rem;
+        color: #1a1a2e;
+        margin-bottom: 10px;
         font-weight: 700;
-        font-size: 1.3rem;
-        line-height: 1.4;
-        -webkit-animation: pulse-flash 1s infinite;
-        animation: pulse-flash 1s infinite;
-        border-bottom: 1px solid rgba(255,255,255,0.2);
-        z-index: 1000;
       }
-      @-webkit-keyframes pulse-flash {
-        0%, 100% {
-          background-color: #d32f2f;
-          color: #ffffff;
-        }
-        50% {
-          background-color: #ffebee;
-          color: #c62828;
-        }
+      .donation-section p {
+        color: #555;
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
       }
-      @keyframes pulse-flash {
-        0%, 100% {
-          background-color: #d32f2f;
-          color: #ffffff;
-        }
-        50% {
-          background-color: #ffebee;
-          color: #c62828;
-        }
+      .qr-codes-container {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        flex-wrap: wrap;
+      }
+      .qr-code-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .qr-code-wrapper {
+        width: 80px;
+        height: 80px;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        cursor: pointer;
+        background: #fff;
+        padding: 8px;
+      }
+      .qr-code-wrapper:hover {
+        width: 200px;
+        height: 200px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        z-index: 100;
+      }
+      .qr-code-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+      .qr-code-label {
+        margin-top: 10px;
+        font-weight: 600;
+        color: #333;
+        font-size: 0.9rem;
+      }
+      /* Category section styles */
+      .category-section-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #1a1a2e;
+        text-align: center;
+        padding: 40px 0 20px;
+        margin: 0;
+        border-top: 1px solid #eaeaea;
+      }
+      .category-section-title:first-of-type {
+        border-top: none;
       }
     </style>
   </head>

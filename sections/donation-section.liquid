@@ -1,0 +1,260 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="donation-section section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient" id="donation-section">
+  <div class="page-width">
+    <h2 class="donation-title{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      {{ section.settings.title | escape }}
+    </h2>
+    <p class="donation-description{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      {{ section.settings.description | escape }}
+    </p>
+    
+    <div class="qr-codes-container{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      {%- if section.settings.qr_code_1 != blank -%}
+        <div class="qr-code-item">
+          <div class="qr-code-wrapper">
+            <img src="{{ section.settings.qr_code_1 | image_url: width: 400 }}" alt="{{ section.settings.qr_label_1 | escape }}" loading="lazy">
+          </div>
+          {%- if section.settings.qr_label_1 != blank -%}
+            <span class="qr-code-label">{{ section.settings.qr_label_1 | escape }}</span>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+      
+      {%- if section.settings.qr_code_2 != blank -%}
+        <div class="qr-code-item">
+          <div class="qr-code-wrapper">
+            <img src="{{ section.settings.qr_code_2 | image_url: width: 400 }}" alt="{{ section.settings.qr_label_2 | escape }}" loading="lazy">
+          </div>
+          {%- if section.settings.qr_label_2 != blank -%}
+            <span class="qr-code-label">{{ section.settings.qr_label_2 | escape }}</span>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+      
+      {%- if section.settings.qr_code_3 != blank -%}
+        <div class="qr-code-item">
+          <div class="qr-code-wrapper">
+            <img src="{{ section.settings.qr_code_3 | image_url: width: 400 }}" alt="{{ section.settings.qr_label_3 | escape }}" loading="lazy">
+          </div>
+          {%- if section.settings.qr_label_3 != blank -%}
+            <span class="qr-code-label">{{ section.settings.qr_label_3 | escape }}</span>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.qr_code_1 == blank and section.settings.qr_code_2 == blank and section.settings.qr_code_3 == blank -%}
+        <!-- Placeholder QR codes for preview -->
+        <div class="qr-code-item">
+          <div class="qr-code-wrapper" style="display: flex; align-items: center; justify-content: center; background: #f0f0f0;">
+            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1">
+              <rect x="3" y="3" width="7" height="7"/>
+              <rect x="14" y="3" width="7" height="7"/>
+              <rect x="3" y="14" width="7" height="7"/>
+              <rect x="14" y="14" width="7" height="7"/>
+            </svg>
+          </div>
+          <span class="qr-code-label">PayPal</span>
+        </div>
+        <div class="qr-code-item">
+          <div class="qr-code-wrapper" style="display: flex; align-items: center; justify-content: center; background: #f0f0f0;">
+            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1">
+              <rect x="3" y="3" width="7" height="7"/>
+              <rect x="14" y="3" width="7" height="7"/>
+              <rect x="3" y="14" width="7" height="7"/>
+              <rect x="14" y="14" width="7" height="7"/>
+            </svg>
+          </div>
+          <span class="qr-code-label">Venmo</span>
+        </div>
+        <div class="qr-code-item">
+          <div class="qr-code-wrapper" style="display: flex; align-items: center; justify-content: center; background: #f0f0f0;">
+            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1">
+              <rect x="3" y="3" width="7" height="7"/>
+              <rect x="14" y="3" width="7" height="7"/>
+              <rect x="3" y="14" width="7" height="7"/>
+              <rect x="14" y="14" width="7" height="7"/>
+            </svg>
+          </div>
+          <span class="qr-code-label">Cash App</span>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<style>
+  .donation-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    text-align: center;
+  }
+  .donation-title {
+    font-size: 2rem;
+    color: #1a1a2e;
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+  .donation-description {
+    color: #555;
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+  .qr-codes-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .qr-code-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .qr-code-wrapper {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    background: #fff;
+    padding: 8px;
+  }
+  .qr-code-wrapper:hover {
+    width: 200px;
+    height: 200px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    z-index: 100;
+    position: relative;
+  }
+  .qr-code-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .qr-code-label {
+    margin-top: 10px;
+    font-weight: 600;
+    color: #333;
+    font-size: 0.9rem;
+  }
+  @media screen and (max-width: 749px) {
+    .qr-codes-container {
+      gap: 25px;
+    }
+    .qr-code-wrapper {
+      width: 70px;
+      height: 70px;
+    }
+    .qr-code-wrapper:hover {
+      width: 160px;
+      height: 160px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Donation Section",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Support Our Mission",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "default": "If you don't wish to make a purchase and wish to send a donation, it will be greatly appreciated. Scan any QR code below to donate.",
+      "label": "Description"
+    },
+    {
+      "type": "image_picker",
+      "id": "qr_code_1",
+      "label": "QR Code 1"
+    },
+    {
+      "type": "text",
+      "id": "qr_label_1",
+      "default": "PayPal",
+      "label": "QR Code 1 Label"
+    },
+    {
+      "type": "image_picker",
+      "id": "qr_code_2",
+      "label": "QR Code 2"
+    },
+    {
+      "type": "text",
+      "id": "qr_label_2",
+      "default": "Venmo",
+      "label": "QR Code 2 Label"
+    },
+    {
+      "type": "image_picker",
+      "id": "qr_code_3",
+      "label": "QR Code 3"
+    },
+    {
+      "type": "text",
+      "id": "qr_label_3",
+      "default": "Cash App",
+      "label": "QR Code 3 Label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Donation Section"
+    }
+  ]
+}
+{% endschema %}

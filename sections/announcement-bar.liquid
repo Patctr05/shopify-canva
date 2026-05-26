@@ -18,11 +18,160 @@
   {{ 'component-list-social.css' | asset_url | stylesheet_tag }}
 {% endif %}
 
-<div class="breaking-news-flasher">
+<style>
+  .king-of-kings-banner {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    color: #f8d56b;
+    padding: 14px 20px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.6rem;
+    letter-spacing: 0.15rem;
+    text-transform: uppercase;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    border-bottom: 2px solid rgba(248, 213, 107, 0.3);
+  }
+  .breaking-news-inline {
+    background-color: #ffffff;
+    padding: 12px 20px;
+    text-align: center;
+    border-bottom: 1px solid #eaeaea;
+  }
+  .breaking-news-inline span {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.15rem;
+    color: #333;
+    line-height: 1.5;
+  }
+  .breaking-news-inline .news-label {
+    background-color: #d32f2f;
+    color: #ffffff;
+    padding: 4px 10px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.05rem;
+    text-transform: uppercase;
+    border-radius: 3px;
+    animation: pulse-label 1.5s infinite;
+  }
+  @keyframes pulse-label {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+  .phone-case-nav {
+    background-color: #f9f9f9;
+    padding: 12px 20px;
+    border-bottom: 1px solid #eaeaea;
+  }
+  .phone-case-nav-inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .phone-case-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #333;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  .phone-case-nav-item:hover {
+    background-color: #e8e8e8;
+    transform: translateY(-2px);
+  }
+  .phone-case-nav-item svg {
+    width: 28px;
+    height: 28px;
+    margin-bottom: 4px;
+  }
+  .phone-case-nav-item span {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03rem;
+  }
+</style>
+
+<!-- King of Kings Lord of Lords Banner -->
+<div class="king-of-kings-banner">
+  King of Kings Lord of Lords
+</div>
+
+<!-- Breaking News (inline, not full banner) -->
+<div class="breaking-news-inline">
   <div class="page-width">
-    <span><strong>Breaking News:</strong> John Kiriakou, a former CIA spy, says "the CIA can access any device with a camera and microphone and turn them on." Cover your phone cameras now with this great deal.</span>
+    <span>
+      <span class="news-label">Breaking News</span>
+      John Kiriakou, a former CIA spy, says "the CIA can access any device with a camera and microphone and turn them on." Cover your phone cameras now with this great deal.
+    </span>
   </div>
 </div>
+
+<!-- Phone Case Navigation Icons -->
+<div class="phone-case-nav">
+  <div class="page-width">
+    <div class="phone-case-nav-inner">
+      <a href="#mens-tshirts-section" class="phone-case-nav-item smooth-scroll">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.47a1 1 0 00.99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 002-2V10h2.15a1 1 0 00.99-.84l.58-3.47a2 2 0 00-1.34-2.23z"/>
+        </svg>
+        <span>Men&apos;s Tees</span>
+      </a>
+      <a href="#womens-tshirts-section" class="phone-case-nav-item smooth-scroll">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.47a1 1 0 00.99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 002-2V10h2.15a1 1 0 00.99-.84l.58-3.47a2 2 0 00-1.34-2.23z"/>
+        </svg>
+        <span>Women&apos;s Tees</span>
+      </a>
+      <a href="#coffee-cups-section" class="phone-case-nav-item smooth-scroll">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M17 8h1a4 4 0 110 8h-1M3 8h14v9a4 4 0 01-4 4H7a4 4 0 01-4-4V8zM6 1v3M10 1v3M14 1v3"/>
+        </svg>
+        <span>Coffee Cups</span>
+      </a>
+      <a href="#screen-protectors-section" class="phone-case-nav-item smooth-scroll">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+          <line x1="12" y1="18" x2="12" y2="18"/>
+        </svg>
+        <span>Screen Protectors</span>
+      </a>
+      <a href="#camera-covers-section" class="phone-case-nav-item smooth-scroll">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="13" r="3"/>
+          <path d="M5 7h2l2-3h6l2 3h2a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9a2 2 0 012-2z"/>
+        </svg>
+        <span>Camera Covers</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.smooth-scroll').forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        var targetId = this.getAttribute('href');
+        var targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  });
+</script>
 
 <div
   class="utility-bar color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator and section.blocks.size > 0 %} utility-bar--bottom-border{% elsif section.settings.show_line_separator and section.settings.show_social and social_icons%} utility-bar--bottom-border-social-only{% endif %}{% if section.settings.enable_country_selector or section.settings.enable_language_selector %} header-localization{% endif %}"
