@@ -160,6 +160,59 @@ engine.registerTag('style', {
   }
 });
 
+engine.registerTag('paginate', {
+  parse: function(tagToken, remainTokens) {
+    this.templates = [];
+    const stream = this.liquid.parser.parseStream(remainTokens);
+    stream
+      .on('template', (tpl) => this.templates.push(tpl))
+      .on('tag:endpaginate', () => stream.stop())
+      .on('end', () => { throw new Error(`tag paginate not closed`); });
+    stream.start();
+  },
+  render: async function(ctx, emitter) {
+    ctx.push({
+      paginate: {
+        current_page: 1,
+        pages: 1,
+        items: 4,
+        page_size: 4
+      }
+    });
+    await this.liquid.renderer.renderTemplates(this.templates, ctx, emitter);
+    ctx.pop();
+  }
+});
+
+engine.registerTag('form', {
+  parse: function(tagToken, remainTokens) {
+    this.args = tagToken.args;
+    this.templates = [];
+    const stream = this.liquid.parser.parseStream(remainTokens);
+    stream
+      .on('template', (tpl) => this.templates.push(tpl))
+      .on('tag:endform', () => stream.stop())
+      .on('end', () => { throw new Error(`tag form not closed`); });
+    stream.start();
+  },
+  render: async function(ctx, emitter) {
+    let idAttr = '';
+    let classAttr = '';
+    const idMatch = this.args.match(/id:\s*['"]([^'"]+)['"]/);
+    if (idMatch) idAttr = ` id="${idMatch[1]}"`;
+    const classMatch = this.args.match(/class:\s*['"]([^'"]+)['"]/);
+    if (classMatch) classAttr = ` class="${classMatch[1]}"`;
+    
+    emitter.write(`<form${idAttr}${classAttr} action="#" method="post">`);
+    ctx.push({ form: { posted_successfully: false, errors: [] } });
+    await this.liquid.renderer.renderTemplates(this.templates, ctx, emitter);
+    ctx.pop();
+    emitter.write('</form>');
+  }
+});
+
+engine.registerFilter('payment_terms', () => '<div class="shopify-payment-terms">Mock Payment Terms</div>');
+
 const registerEmptyTag = (name) => {
   engine.registerTag(name, {
     parse: function(tagToken, remainTokens) {
