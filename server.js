@@ -688,6 +688,11 @@ async function fetchLiveProducts() {
           values: opt.values
         })) : [];
 
+        let cleanedHtml = p.body_html || "";
+        cleanedHtml = cleanedHtml.replace(/<h3><span>Breaking News:.*?great deal\.<\/span><\/h3>/gi, '');
+        cleanedHtml = cleanedHtml.replace(/Breaking News:.*?great deal\./gi, '');
+        cleanedHtml = cleanedHtml.trim();
+
         return {
           id: p.id,
           title: p.title,
@@ -703,9 +708,46 @@ async function fetchLiveProducts() {
           variants: variants,
           selected_or_first_available_variant: selectedVariant,
           options_with_values: options_with_values,
-          description: p.body_html || "",
-          content: p.body_html || ""
+          description: cleanedHtml,
+          content: cleanedHtml
         };
+      });
+
+      // Sort products: Men's T-Shirts first (Ben-Jlo then Mailbox then others), then Women's T-Shirts, then other products
+      mapped.sort((a, b) => {
+        const titleA = a.title.toLowerCase();
+        const titleB = b.title.toLowerCase();
+        
+        const isTShirtA = titleA.includes('t-shirt') || titleA.includes('tee');
+        const isTShirtB = titleB.includes('t-shirt') || titleB.includes('tee');
+        
+        const isMensA = titleA.includes('men');
+        const isMensB = titleB.includes('men');
+        
+        const isWomansA = titleA.includes('woman') || titleA.includes('women');
+        const isWomansB = titleB.includes('woman') || titleB.includes('women');
+        
+        if (isTShirtA && !isTShirtB) return -1;
+        if (!isTShirtA && isTShirtB) return 1;
+        
+        if (isTShirtA && isTShirtB) {
+          if (isMensA && !isMensB) return -1;
+          if (!isMensA && isMensB) return 1;
+          if (isWomansA && !isWomansB && !isMensB) return -1;
+          if (!isWomansA && isWomansB && !isMensA) return 1;
+          
+          const isBenJloA = titleA.includes('ben-jlo') || titleA.includes('benjlo');
+          const isBenJloB = titleB.includes('ben-jlo') || titleB.includes('benjlo');
+          if (isBenJloA && !isBenJloB) return -1;
+          if (!isBenJloA && isBenJloB) return 1;
+          
+          const isMailboxA = titleA.includes('mailbox');
+          const isMailboxB = titleB.includes('mailbox');
+          if (isMailboxA && !isMailboxB) return -1;
+          if (!isMailboxA && isMailboxB) return 1;
+        }
+        
+        return 0;
       });
 
       mockProducts = mapped;
